@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   CssBaseline,
@@ -10,13 +12,28 @@ import {
 import BookTwoToneIcon from '@mui/icons-material/BookTwoTone';
 import bg from "../images/background.webp";
 
-const Login = () => {
-  const handleLogin = () => {};
+const Login :React.FC = () => {
+  const { googleSignIn, user } = UserAuth();
+  const navigate = useNavigate();
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (user != null) {
+      navigate('/Home');
+    }
+  }, [user]);
 
   return (
     <>
       <CssBaseline />
-      
+
       <Box
         sx={{
           position: 'absolute',
@@ -69,7 +86,7 @@ const Login = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 1, mb: 1, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#333' }, width: '100%' }}
-              onClick={handleLogin}
+              onClick={handleGoogleSignIn}
             >
               Student Login
             </Button>
@@ -77,7 +94,7 @@ const Login = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 0.5, mb: 1, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#333' }, width: '100%' }}
-              onClick={handleLogin}
+              onClick={handleGoogleSignIn}
             >
               Librarian Login
             </Button>
@@ -85,7 +102,7 @@ const Login = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 0.5, mb: 1, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#333' }, width: '100%' }}
-              onClick={handleLogin}
+              onClick={handleGoogleSignIn}
             >
               Admin Login
             </Button>
