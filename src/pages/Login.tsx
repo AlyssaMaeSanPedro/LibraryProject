@@ -16,19 +16,28 @@ const Login :React.FC = () => {
   const { googleSignIn, user } = UserAuth();
   const navigate = useNavigate();
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignIn = async (role: string) => {
     try {
-      await googleSignIn();
+        const result = await googleSignIn();
+        
+        switch (role) {
+            case 'User':
+                navigate('/UserHome');
+                break;
+            case 'Librarian':
+                navigate('/LibrarianHome');
+                break;
+            case 'Admin':
+                navigate('/AdminHome');
+                break;
+            default:
+                navigate('/Home'); 
+        }
     } catch (error) {
-      console.log(error);
+        console.error(error);
     }
-  };
+};
 
-  useEffect(() => {
-    if (user != null) {
-      navigate('/Home');
-    }
-  }, [user]);
 
   return (
     <>
@@ -54,17 +63,17 @@ const Login :React.FC = () => {
       </Box>
 
       <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundImage: `url(${bg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          height: '100vh',
-          width: '100%',
-        }}
+  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundImage: `linear-gradient(rgba(195, 177, 225, 0.7), rgba(195, 177, 225, 0.7)), url(${bg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: '100vh',
+    width: '100%',
+  }}
       >
         <Container maxWidth="xs">
           <Box
@@ -86,7 +95,7 @@ const Login :React.FC = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 1, mb: 1, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#333' }, width: '100%' }}
-              onClick={handleGoogleSignIn}
+              onClick={() => handleGoogleSignIn('User')}
             >
               Student Login
             </Button>
@@ -94,7 +103,7 @@ const Login :React.FC = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 0.5, mb: 1, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#333' }, width: '100%' }}
-              onClick={handleGoogleSignIn}
+              onClick={() => handleGoogleSignIn('Librarian')}
             >
               Librarian Login
             </Button>
@@ -102,7 +111,7 @@ const Login :React.FC = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 0.5, mb: 1, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#333' }, width: '100%' }}
-              onClick={handleGoogleSignIn}
+              onClick={() => handleGoogleSignIn('Admin')}
             >
               Admin Login
             </Button>

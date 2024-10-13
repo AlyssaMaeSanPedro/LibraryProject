@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+import { Typography } from '@mui/material';
 
 const NavBar: React.FC = () => {
     const { user, logout } = UserAuth();
@@ -9,18 +10,19 @@ const NavBar: React.FC = () => {
     const handleSignOut = async () => {
         try {
             await logout();
-            navigate("/"); // Redirect to login page after logout
+            navigate("/");
         } catch (error) {
             console.log(error);
         }
     };
+    
 
     return (
         <nav style={styles.navbar}>
             <div style={styles.left}>
-                <Link to="/Home" style={styles.logo}>
+            <Typography>
                     Home Page
-                </Link>
+                </Typography>
             </div>
             <div style={styles.right}>
                 {user?.displayName ? (

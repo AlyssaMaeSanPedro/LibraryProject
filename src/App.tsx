@@ -1,7 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
+import UserHome from './pages/UserHome';
+import LibrarianHome from './pages/LibrarianHome';
+import AdminHome from './pages/AdminHome';
 import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
@@ -9,7 +11,9 @@ function App() {
     <AuthContextProvider>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/Home" element={<Home />} />
+        <Route path="/UserHome" element={<UserHome />} />
+        <Route path="/LibrarianHome" element={<LibrarianHome />} />
+        <Route path="/AdminHome" element={<AdminHome />} />
       </Routes>
     </AuthContextProvider>
   );
