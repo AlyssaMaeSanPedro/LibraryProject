@@ -1,43 +1,35 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from 'react-router-dom';
-import {
-  Container,
-  CssBaseline,
-  Box,
-  Typography,
-  Button,
-  Avatar,
-} from "@mui/material";
+import { Container, CssBaseline, Box, Typography, Button, Avatar } from "@mui/material";
 import BookTwoToneIcon from '@mui/icons-material/BookTwoTone';
-import bg from "../images/background.webp";
+import bg from "../images/background.jpeg";
 
-const Login :React.FC = () => {
-  const { googleSignIn, user } = UserAuth();
+const Login: React.FC = () => {
+  const { googleSignIn} = UserAuth();
   const navigate = useNavigate();
 
   const handleGoogleSignIn = async (role: string) => {
     try {
-        const result = await googleSignIn();
-        
-        switch (role) {
-            case 'User':
-                navigate('/UserHome');
-                break;
-            case 'Librarian':
-                navigate('/LibrarianHome');
-                break;
-            case 'Admin':
-                navigate('/AdminHome');
-                break;
-            default:
-                navigate('/Home'); 
-        }
-    } catch (error) {
-        console.error(error);
-    }
-};
+      await googleSignIn();
 
+      switch (role) {
+        case 'User':
+          navigate('/UserHome');
+          break;
+        case 'Librarian':
+          navigate('/LibrarianHome');
+          break;
+        case 'Admin':
+          navigate('/AdminHome');
+          break;
+        default:
+          navigate('/Home');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -52,38 +44,36 @@ const Login :React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ width: 40, height: 40, mr: 1, bgcolor: "purple" }}>
+        <Avatar sx={{ width: 40, height: 40, mr: 1, bgcolor: "#221D33" }}>
           <BookTwoToneIcon sx={{ color: "white" }} />
         </Avatar>
-        <Typography variant="h6" color="White" sx={{ fontWeight: 'bold', 
-                    textShadow: '2px 2px 10px rgba(0, 0, 0, 1)'
-        }}>
+        <Typography variant="h5" color="#221D33" sx={{ fontWeight: 'bold' }}>
           LIBRARY
         </Typography>
       </Box>
 
       <Box
-  sx={{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundImage: `linear-gradient(rgba(195, 177, 225, 0.7), rgba(195, 177, 225, 0.7)), url(${bg})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    height: '100vh',
-    width: '100%',
-  }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundImage: `linear-gradient(#9689C2B3, #9689C2B3), url(${bg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: '100vh',
+          width: '100%',
+        }}
       >
         <Container maxWidth="xs">
           <Box
             sx={{
               mt: 1,
               p: 2,
-              border: "1px solid white",
-              bgcolor: "white",
+              border: "1px solid #221D33",
+              bgcolor: "transparent",
               borderRadius: 2,
-              boxShadow: 5,
+              boxShadow: 10,
               width: '100%',
             }}
           >
@@ -94,7 +84,14 @@ const Login :React.FC = () => {
             <Button
               fullWidth
               variant="contained"
-              sx={{ mt: 1, mb: 1, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#333' }, width: '100%' }}
+              sx={{
+                mt: 1,
+                mb: 1,
+                bgcolor: '#221D33',
+                color: 'white',
+                '&:hover': { bgcolor: '#000000e6' },
+                width: '100%',
+              }}
               onClick={() => handleGoogleSignIn('User')}
             >
               Student Login
@@ -102,7 +99,14 @@ const Login :React.FC = () => {
             <Button
               fullWidth
               variant="contained"
-              sx={{ mt: 0.5, mb: 1, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#333' }, width: '100%' }}
+              sx={{
+                mt: 0.5,
+                mb: 1,
+                bgcolor: '#221D33',
+                color: 'white',
+                '&:hover': { bgcolor: '#000000e6' },
+                width: '100%',
+              }}
               onClick={() => handleGoogleSignIn('Librarian')}
             >
               Librarian Login
@@ -110,7 +114,14 @@ const Login :React.FC = () => {
             <Button
               fullWidth
               variant="contained"
-              sx={{ mt: 0.5, mb: 1, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#333' }, width: '100%' }}
+              sx={{
+                mt: 0.5,
+                mb: 1,
+                bgcolor: '#221D33',
+                color: 'white',
+                '&:hover': { bgcolor: '#000000e6' },
+                width: '100%',
+              }}
               onClick={() => handleGoogleSignIn('Admin')}
             >
               Admin Login
